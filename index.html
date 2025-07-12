@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <title>グループ分けツール（非WebGL版）</title>
+        <link rel="stylesheet" href="style.css">
+        <script src="script.js" defer></script>
+    </head>
+    <body>
+        <h1>グループ分けツール（非WebGL版）</h1>
+        <p>Copyright &copy; 2025 | License: Apache License 2.0</p>
+        <br>
+        <div id="inputpanel">
+        <textarea id="menber" placeholder="すべてのメンバー" class="distance"></textarea>
+        <div>
+            一グループの最低人数:
+            <br>
+            <input type="number" id="minPeople" min="1" value="1" class="distance">
+            <br>
+            <button id="groupButton" class="distance">分ける</button>
+        </div>
+        </div>
+        <div id="result">
+            <h2>グループ分け結果</h2>
+            <div id="groupedMembers"></div>
+    </body>
+</html>
