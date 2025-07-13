@@ -76,3 +76,62 @@ function groupMembers() {
     }
 }
 button.addEventListener('click', groupMembers);
+
+const downloadButton = document.getElementById('downloadButton');
+downloadButton.addEventListener('click', () => {
+    let text = '';
+    const groups = document.querySelectorAll('#groupedMembers .group');
+    if (groups.length === 0) {
+        alert('グループ分け結果がありません。');
+        return;
+    }
+
+    // 日付取得（復元かどうか判定）
+    let groupedTime = localStorage.getItem('groupedTime');
+    let resultTitle = document.querySelector('#result h2');
+    let isRestored = false;
+    let usedTime = '';
+    if (resultTitle && resultTitle.textContent.includes('復元しました')) {
+        isRestored = true;
+        usedTime = groupedTime || '';
+    } else {
+        usedTime = new Date().toLocaleString();
+    }
+
+    // ファイル名用の日付（grouped_年_月_日_時_分_秒.txt）
+    function dateToFilename(dateStr) {
+        const d = new Date(dateStr);
+        const pad = n => n.toString().padStart(2, '0');
+        return `grouped_${d.getFullYear()}_${pad(d.getMonth()+1)}_${pad(d.getDate())}_${pad(d.getHours())}_${pad(d.getMinutes())}_${pad(d.getSeconds())}.txt`;
+    }
+    const filename = dateToFilename(usedTime);
+
+    // メンバー・日付・最低人数を記述
+    text += '----- グループ分けツール　結果 -----\n';
+    text += 'https://grouping-tool.netlify.app/\n\n';
+    text += `【グループ分け日時】${usedTime}\n\n`;
+    text += '【元のメンバー】\n';
+    text += menberInput.value.trim() + '\n\n';
+    text += `【一グループの最低人数】${minPeopleInput.value}\n\n`;
+    text += '【グループ分け結果】\n';
+
+    groups.forEach((group, i) => {
+        text += `＜グループ${i + 1}＞\n`;
+        group.querySelectorAll('div').forEach(memberDiv => {
+            text += memberDiv.textContent + '\n';
+        });
+        text += '\n';
+    });
+
+    const blob = new Blob([text], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(() => {
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+    }, 0);
+});
