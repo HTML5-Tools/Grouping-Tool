@@ -25,22 +25,51 @@
     padding: 12px;
     background: #f9fff9;
     min-width: 0;
-    flex: 1 1 calc(20% - 16px); /* 5つ並べる */
     box-sizing: border-box;
     margin-bottom: 16px;
     text-align: left;
     word-break: break-all;
-    max-width: calc(20% - 16px);
-    font-size: 2em; /* 文字を2倍に */
+    font-size: 2em;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    /* 横幅を可変にする */
+    flex: 1 1 0;
+    max-width: 100%;
+}
+.group > div {
+    font-size: 0.9em; /* メンバー部分をやや小さく */
 }
 
-@media (max-width: 800px) {
+/* 画面サイズに応じて自動で列数を調整 */
+@media (min-width: 1600px) {
     .group {
-        flex: 1 1 calc(50% - 16px);
+        flex-basis: calc(16.666% - 16px); /* 6列 */
+        max-width: calc(16.666% - 16px);
+    }
+}
+@media (min-width: 1200px) and (max-width: 1599px) {
+    .group {
+        flex-basis: calc(20% - 16px); /* 5列 */
+        max-width: calc(20% - 16px);
+    }
+}
+@media (min-width: 900px) and (max-width: 1199px) {
+    .group {
+        flex-basis: calc(25% - 16px); /* 4列 */
+        max-width: calc(25% - 16px);
+    }
+}
+@media (min-width: 600px) and (max-width: 899px) {
+    .group {
+        flex-basis: calc(33.333% - 16px); /* 3列 */
+        max-width: calc(33.333% - 16px);
+    }
+}
+@media (max-width: 599px) {
+    .group {
+        flex-basis: calc(50% - 16px); /* 2列 */
         max-width: calc(50% - 16px);
     }
 }
