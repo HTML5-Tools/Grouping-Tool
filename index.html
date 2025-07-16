@@ -9,19 +9,30 @@
     </head>
     <body>
         <h1>グループ分けツール（非WebGL版）</h1>
-        <p>Copyright &copy; 2025 | License: Apache License 2.0</p>
+        <p>グループ分けが簡単にできるツール。</p>
+        <p>Version 2.0 | Copyright &copy; 2025 | License: Apache License 2.0 | <a href="https://forms.gle/sWWqgbf4NWHUnuZV6">フィードバックフォーム</a></p>
         <br>
         <div id="inputpanel">
-        <textarea id="menber" placeholder="すべてのメンバー" class="distance"></textarea>
-        <div>
-            一グループの最低人数:
-            <br>
-            <input type="number" id="minPeople" min="1" value="1" class="distance">
-            <br>
-            <button id="groupButton" class="distance">分ける</button>
-            <br>
-            <button id="downloadButton" class="distance">結果をテキストファイルで出力</button>
-        </div>
+            <div class="input-label-area">
+                <label for="menber" class="input-label">すべてのメンバー：</label>
+                <textarea id="menber" class="distance"></textarea>
+                <div id="menber-count" class="member-count"></div>
+            </div>
+            <div class="input-label-area">
+                <label for="absent" class="input-label">いないメンバー：</label>
+                <textarea id="absent" class="distance"></textarea>
+                <div id="absent-count" class="member-count"></div>
+            </div>
+            <div>
+                一グループの最低人数:
+                <br>
+                <input type="number" id="minPeople" min="1" value="1" class="distance">
+                <br>
+                <button id="groupButton" class="distance">分ける</button>
+                <br>
+                <button id="downloadButton" class="distance">結果をテキストファイルで出力</button>
+                <div id="final-count" class="member-count"></div>
+            </div>
         </div>
         <div id="result">
             <h2>グループ分け結果</h2>

@@ -3,14 +3,19 @@ const button = document.getElementById('groupButton');
 const menberInput = document.getElementById('menber');
 const minPeopleInput = document.getElementById('minPeople');
 const resultContainer = document.getElementById('groupedMembers');
+const menberCount = document.getElementById('menber-count');
+const absentCount = document.getElementById('absent-count'); // ←ここで1回だけ宣言
+const finalCount = document.getElementById('final-count');
 
 // ローカルストレージから復元
 window.addEventListener('DOMContentLoaded', () => {
     const savedMenber = localStorage.getItem('menber');
+    const savedAbsent = localStorage.getItem('absent');
     const savedMinPeople = localStorage.getItem('minPeople');
     const savedResult = localStorage.getItem('groupedMembers');
     const savedTime = localStorage.getItem('groupedTime');
     if (savedMenber !== null) menberInput.value = savedMenber;
+    if (savedAbsent !== null) document.getElementById('absent').value = savedAbsent;
     if (savedMinPeople !== null) minPeopleInput.value = savedMinPeople;
     if (savedResult !== null) {
         resultContainer.innerHTML = savedResult;
@@ -22,12 +27,42 @@ window.addEventListener('DOMContentLoaded', () => {
             resultTitle.textContent = 'グループ分け結果 ' + info;
         }
     }
+    // ストレージからの読み込み・反映が終わった後に人数表示を更新
+    updateCounts();
 });
 
 function groupMembers() {
     let menber = menberInput.value;
+    let absent = document.getElementById('absent').value;
     let minPeople = minPeopleInput.value;
-    let menberArray = menber.split('\n').filter(v => v.trim() !== '');
+
+    // メンバー配列
+    let menberArray = menber.split('\n').map(v => v.trim()).filter(v => v !== '');
+    // いないメンバー配列
+    let absentArray = absent.split('\n').map(v => v.trim()).filter(v => v !== '');
+
+    // すべてのメンバー重複チェック
+    const menberDup = menberArray.filter((v, i, arr) => arr.indexOf(v) !== i && v !== "");
+    if (menberDup.length > 0) {
+        alert('「すべてのメンバー」に重複があります: ' + [...new Set(menberDup)].join(', '));
+        return;
+    }
+    // いないメンバー重複チェック
+    const absentDup = absentArray.filter((v, i, arr) => arr.indexOf(v) !== i && v !== "");
+    if (absentDup.length > 0) {
+        alert('「いないメンバー」に重複があります: ' + [...new Set(absentDup)].join(', '));
+        return;
+    }
+
+    // いないメンバーがすべてのメンバーに含まれていない場合アラート
+    let notFound = absentArray.filter(name => !menberArray.includes(name));
+    if (notFound.length > 0) {
+        alert('「すべてのメンバー」に存在しない名前が「いないメンバー」に存在します: ' + notFound.join(', '));
+        return;
+    }
+
+    // いないメンバーを除外
+    menberArray = menberArray.filter(name => !absentArray.includes(name));
     let numOfMenber = menberArray.length;
     let result = [];
     // 「グループ分け結果」横の復元表示を消す
@@ -40,7 +75,7 @@ function groupMembers() {
     } else if (minPeople < 1) {
         alert('「一グループの最低人数」は1人以上に設定してください。');
     } else if (parseInt(minPeople) > numOfMenber) {
-        alert('「一グループの最低人数」が「すべてのメンバー」の人数を上回っています。');
+        alert('「一グループの最低人数」が最終的な人数を上回っています。');
     } else {
         // グループ分けの処理 ここから
         menberArray = menberArray
@@ -68,8 +103,9 @@ function groupMembers() {
         });
         // グループ分けの処理 ここまで
 
-        // ローカルストレージに保存
+        // ローカルストレージに保存（いないメンバーも追加）
         localStorage.setItem('menber', menberInput.value);
+        localStorage.setItem('absent', document.getElementById('absent').value);
         localStorage.setItem('minPeople', minPeopleInput.value);
         localStorage.setItem('groupedMembers', resultContainer.innerHTML);
         localStorage.setItem('groupedTime', new Date().toLocaleString());
@@ -135,3 +171,19 @@ downloadButton.addEventListener('click', () => {
         window.URL.revokeObjectURL(url);
     }, 0);
 });
+
+function updateCounts() {
+    // すべてのメンバー人数
+    const menberArray = menberInput.value.split('\n').map(v => v.trim()).filter(v => v !== '');
+    menberCount.textContent = `人数：${menberArray.length}`;
+    // いないメンバー人数
+    const absentArray = document.getElementById('absent').value.split('\n').map(v => v.trim()).filter(v => v !== '');
+    absentCount.textContent = `人数：${absentArray.length}`;
+    // 最終的な人数（いないメンバーを除いた人数）
+    const filtered = menberArray.filter(name => !absentArray.includes(name));
+    finalCount.textContent = `最終的な人数：${filtered.length}`;
+}
+menberInput.addEventListener('input', updateCounts);
+document.getElementById('absent').addEventListener('input', updateCounts);
+// 初期表示
+updateCounts();
