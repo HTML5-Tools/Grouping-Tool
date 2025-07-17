@@ -187,3 +187,23 @@ menberInput.addEventListener('input', updateCounts);
 document.getElementById('absent').addEventListener('input', updateCounts);
 // 初期表示
 updateCounts();
+
+// ダークモード切替機能
+const darkModeButton = document.getElementById('darkModeButton');
+
+function setDarkMode(enabled) {
+    document.body.classList.toggle('dark-mode', enabled);
+    localStorage.setItem('darkMode', enabled ? '1' : '0');
+    darkModeButton.textContent = enabled ? '☀️' : '🌙';
+}
+
+darkModeButton.addEventListener('click', () => {
+    const isDark = document.body.classList.contains('dark-mode');
+    setDarkMode(!isDark);
+});
+
+// ページ読み込み時にダークモード状態を復元
+window.addEventListener('DOMContentLoaded', () => {
+    const darkMode = localStorage.getItem('darkMode') === '1';
+    setDarkMode(darkMode);
+});

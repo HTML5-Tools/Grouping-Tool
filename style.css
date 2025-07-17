@@ -106,3 +106,61 @@
         max-width: calc(50% - 16px);
     }
 }
+
+body.dark-mode {
+    background: #222;
+    color: #eee;
+}
+body.dark-mode .group {
+    background: #2c2c2c;
+    border-color: #90caf9;
+    color: #eee;
+}
+body.dark-mode #inputpanel,
+body.dark-mode .input-label-area {
+    background: #232323;
+}
+body.dark-mode textarea,
+body.dark-mode input,
+body.dark-mode button {
+    background: #333;
+    color: #eee;
+    border-color: #555;
+}
+body.dark-mode .member-count {
+    color: #bbb;
+}
+
+#darkModeButton {
+    align-self: flex-end;
+    margin-top: 16px;
+    padding: 10px 18px;
+    font-size: 1em;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+/* ダークモード時のボタン色調整 */
+body.dark-mode #darkModeButton {
+    background: #444;
+    color: #fff;
+    border-color: #888;
+}
+
+#titlebar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+#titlebar h1 {
+    margin: 0;
+}
+
+#darkModeButton {
+    padding: 8px 14px;
+    font-size: 1em;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
