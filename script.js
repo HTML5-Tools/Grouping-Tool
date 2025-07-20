@@ -1,6 +1,6 @@
 // Grouping Tool (Non-WebGL Version) by budou10
 const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
-document.querySelector('link#icon').setAttribute('href', isDarkMode ? 'favicon-dark.png' : 'favicon-light.png');
+// document.querySelector('link#icon').setAttribute('href', isDarkMode ? 'favicon-dark.png' : 'favicon-light.png');
 
 const button = document.getElementById('groupButton');
 const menberInput = document.getElementById('menber');
