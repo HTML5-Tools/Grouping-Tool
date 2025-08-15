@@ -3,19 +3,18 @@
 <html lang="ja">
     <head>
         <meta charset="UTF-8">
-        <title>グループ分けツール（非WebGL版） | HTML5 Tools</title>
+        <title>グループ分けツール | HTML5 Tools</title>
         <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="https://html5tools.netlify.app/html5tools-title.css">
         <script src="script.js" defer></script>
         <link rel="icon" type="image/png" href="icon.png" id="icon">
     </head>
     <body>
-        
-        <div id="titlebar">
-            <h1>グループ分けツール（非WebGL版） | <a href="https://html5tools.netlify.app">HTML5 Tools</a></h1>
-            <button id="darkModeButton" class="distance"></button>
-        </div>
-        <p>グループ分けが簡単にできるツール。</p>
-        <p>Version 2.0 | Copyright &copy; 2025 | License: Apache License 2.0 | <a href="https://forms.gle/sWWqgbf4NWHUnuZV6">フィードバックフォーム</a></p>
+        <p class="center" id="catchcopy">だれでも、いつでも、Webで使えるツール集</p>
+        <p id="title">HTML5 Tools</p>
+        <p id="tooltitle" class="center">グループ分けツール</p>
+        <!-- <button id="darkModeButton"></button> -->
+        <p class="center">グループ分けが簡単にできるツール。 | Version 2.0 | <a href="https://forms.gle/sWWqgbf4NWHUnuZV6">フィードバックフォーム</a></p>
         <br>
         <div id="inputpanel">
             <div class="input-label-area">
@@ -42,5 +41,9 @@
         <div id="result">
             <h2>グループ分け結果</h2>
             <div id="groupedMembers"></div>
+        </div>
+        <footer>
+            <p>Copyright &copy; HTML5 Tools 2025 | ライセンス: Apache License 2.0 | <a>ソースコードをダウンロード</a></p>
+        </footer>
     </body>
 </html>

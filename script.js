@@ -210,3 +210,9 @@ window.addEventListener('DOMContentLoaded', () => {
     const darkMode = localStorage.getItem('darkMode') === '1';
     setDarkMode(darkMode);
 });
+
+// タイトルクリックでトップへ移動するスクリプト
+const title_elem = document.getElementById('title');
+title_elem.addEventListener('click', () => {
+    location.href = 'https://html5tools.netlify.app/';
+});
