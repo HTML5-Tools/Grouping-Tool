@@ -1,5 +1,5 @@
 // Grouping Tool (Non-WebGL Version) by budou10
-const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+// const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
 // document.querySelector('link#icon').setAttribute('href', isDarkMode ? 'favicon-dark.png' : 'favicon-light.png');
 
 const button = document.getElementById('groupButton');
@@ -192,27 +192,32 @@ document.getElementById('absent').addEventListener('input', updateCounts);
 updateCounts();
 
 // ダークモード切替機能
-const darkModeButton = document.getElementById('darkModeButton');
+// const darkModeButton = document.getElementById('darkModeButton');
 
-function setDarkMode(enabled) {
-    document.body.classList.toggle('dark-mode', enabled);
-    localStorage.setItem('darkMode', enabled ? '1' : '0');
-    darkModeButton.textContent = enabled ? '☀️' : '🌙';
-}
+// function setDarkMode(enabled) {
+//     document.body.classList.toggle('dark-mode', enabled);
+//     localStorage.setItem('darkMode', enabled ? '1' : '0');
+//     darkModeButton.textContent = enabled ? '☀️' : '🌙';
+// }
 
-darkModeButton.addEventListener('click', () => {
-    const isDark = document.body.classList.contains('dark-mode');
-    setDarkMode(!isDark);
-});
+// darkModeButton.addEventListener('click', () => {
+//     const isDark = document.body.classList.contains('dark-mode');
+//     setDarkMode(!isDark);
+// });
 
 // ページ読み込み時にダークモード状態を復元
-window.addEventListener('DOMContentLoaded', () => {
-    const darkMode = localStorage.getItem('darkMode') === '1';
-    setDarkMode(darkMode);
-});
+// window.addEventListener('DOMContentLoaded', () => {
+//     const darkMode = localStorage.getItem('darkMode') === '1';
+//     setDarkMode(darkMode);
+// });
 
 // タイトルクリックでトップへ移動するスクリプト
-const title_elem = document.getElementById('title');
-title_elem.addEventListener('click', () => {
-    location.href = 'https://html5tools.netlify.app/';
+window.addEventListener('DOMContentLoaded', () => {
+    const title_elem = document.getElementById('title');
+    console.log('title_elem:', title_elem);
+    if (title_elem) {
+        title_elem.addEventListener('click', () => {
+        window.location.href = 'https://html5tools.netlify.app/';
+    });
+    }
 });
