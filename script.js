@@ -206,8 +206,9 @@ function groupMembers() {
     localStorage.setItem('groupedMembers', resultContainer.innerHTML);
     localStorage.setItem('groupedTime', new Date().toLocaleString());
     localStorage.setItem('moreSettings_1', moreSettings_1.checked);
-    for(let i = 0; i < teams.length; i++){
+    for(let i = 0; i < minPeopleInput.value.length; i++){
     localStorage.setItem(`ms_1_${i}`, document.getElementById(`ms_1_${i}`).value);
+    // console.log(`ms_1_${i}` + " : " + document.getElementById(`ms_1_${i}`).value);
     };
 }
 button.addEventListener('click', groupMembers);
