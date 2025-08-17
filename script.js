@@ -3,13 +3,14 @@
 // document.querySelector('link#icon').setAttribute('href', isDarkMode ? 'favicon-dark.png' : 'favicon-light.png');
 const button = document.getElementById('groupButton');
 const menberInput = document.getElementById('menber');
+const absentInput = document.getElementById('absent');
 const minPeopleInput = document.getElementById('minPeople');
 const resultContainer = document.getElementById('groupedMembers');
 const menberCount = document.getElementById('menber-count');
 const absentCount = document.getElementById('absent-count'); // ←ここで1回だけ宣言
 const finalCount = document.getElementById('final-count');
-const moreSettings_1 = document.getElementById('moresettings_1');
-const moreSettings_1_label = document.querySelector('label[for="moresettings_1"]');
+const moreSettings_1 = document.getElementById('moreSettings_1');
+const moreSettings_1_label = document.querySelector('label[for="moreSettings_1"]');
 const moreSettings_1_content = document.querySelector('#moreSettings_1_content');
 
 // ローカルストレージから復元
@@ -58,7 +59,7 @@ function groupMembers() {
         // ...既存の通常処理...
         console.log("通常の処理が開始しました。");
         let menber = menberInput.value;
-        let absent = document.getElementById('absent').value;
+        let absent = absentInput.value;
         let minPeople = minPeopleInput.value;
 
         // メンバー配列
@@ -124,17 +125,10 @@ function groupMembers() {
         result.forEach((group, i) => {
             const groupDiv = document.createElement('div');
             groupDiv.className = 'group';
-            groupDiv.innerHTML = `&lt;グループ${i + 1}&gt;<br>` + group.map(member => `<div>${member}</div>`).join('');
+            groupDiv.innerHTML = `＜グループ${i + 1}＞<br>` + group.map(member => `<div>${member}</div>`).join('');
             resultContainer.appendChild(groupDiv);
         });
         // グループ分けの処理 ここまで
-
-        // ローカルストレージに保存（いないメンバーも追加）
-        localStorage.setItem('menber', menberInput.value);
-        localStorage.setItem('absent', document.getElementById('absent').value);
-        localStorage.setItem('minPeople', minPeopleInput.value);
-        localStorage.setItem('groupedMembers', resultContainer.innerHTML);
-        localStorage.setItem('groupedTime', new Date().toLocaleString());
     } else {
         // ...詳細設定の処理...
         console.log('詳細設定がされた処理が開始しました。');
@@ -204,17 +198,17 @@ function groupMembers() {
             groupDiv.innerHTML = `＜グループ${i + 1}＞<br>` + group.map(member => `<div>${member}</div>`).join('');
             resultContainer.appendChild(groupDiv);
         });
-        // ローカルストレージ保存
-        localStorage.setItem('menber', '');
-        localStorage.setItem('absent', '');
-        localStorage.setItem('minPeople', teams.length);
-        localStorage.setItem('groupedMembers', resultContainer.innerHTML);
-        localStorage.setItem('groupedTime', new Date().toLocaleString());
-        localStorage.setItem('moreSettings_1', moreSettings_1.checked);
-        for(let i = 0; i < teams.length; i++){
-        localStorage.setItem(`ms_1_${i}`, document.getElementById(`ms_1_${i}`).value);
-        }
     }
+    // ローカルストレージ保存
+    localStorage.setItem('menber', menberInput.value);
+    localStorage.setItem('absent', absentInput.value);
+    localStorage.setItem('minPeople', minPeopleInput.value);
+    localStorage.setItem('groupedMembers', resultContainer.innerHTML);
+    localStorage.setItem('groupedTime', new Date().toLocaleString());
+    localStorage.setItem('moreSettings_1', moreSettings_1.checked);
+    for(let i = 0; i < teams.length; i++){
+    localStorage.setItem(`ms_1_${i}`, document.getElementById(`ms_1_${i}`).value);
+    };
 }
 button.addEventListener('click', groupMembers);
 
