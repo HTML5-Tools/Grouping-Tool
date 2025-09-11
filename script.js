@@ -197,7 +197,16 @@ function groupMembers() {
             groupDiv.innerHTML = `＜グループ${i + 1}＞<br>` + group.map(member => `<div>${member}</div>`).join('');
             resultContainer.appendChild(groupDiv);
         });
+        for(let i = 0; i < minPeopleInput.value.length; i++){
+            localStorage.setItem(`ms_1_${i}`, document.getElementById(`ms_1_${i}`).value);
+            // console.log(`ms_1_${i}` + " : " + document.getElementById(`ms_1_${i}`).value);
+        };
     }
+
+    resultContainer.scrollIntoView({
+        behavior: "smooth"
+    });
+
     // ローカルストレージ保存
     localStorage.setItem('menber', menberInput.value);
     localStorage.setItem('absent', absentInput.value);
@@ -205,10 +214,6 @@ function groupMembers() {
     localStorage.setItem('groupedMembers', resultContainer.innerHTML);
     localStorage.setItem('groupedTime', new Date().toLocaleString());
     localStorage.setItem('moreSettings_1', moreSettings_1.checked);
-    for(let i = 0; i < minPeopleInput.value.length; i++){
-    localStorage.setItem(`ms_1_${i}`, document.getElementById(`ms_1_${i}`).value);
-    // console.log(`ms_1_${i}` + " : " + document.getElementById(`ms_1_${i}`).value);
-    };
 }
 button.addEventListener('click', groupMembers);
 
