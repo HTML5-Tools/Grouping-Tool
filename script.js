@@ -6,7 +6,7 @@ const absentInput = document.getElementById('absent');
 const minPeopleInput = document.getElementById('minPeople');
 const resultContainer = document.getElementById('groupedMembers');
 const menberCount = document.getElementById('menber-count');
-const absentCount = document.getElementById('absent-count'); // ←ここで1回だけ宣言
+const absentCount = document.getElementById('absent-count');
 const finalCount = document.getElementById('final-count');
 const moreSettings_1 = document.getElementById('moreSettings_1');
 const moreSettings_1_label = document.querySelector('label[for="moreSettings_1"]');
@@ -55,7 +55,7 @@ function groupMembers() {
     }
     // 詳細設定のチーム分けが有効か判定
     if (!document.getElementById('ms_1_0')) {
-        // ...既存の通常処理...
+        // ...通常の処理...
         console.log("通常の処理が開始しました。");
         let menber = menberInput.value;
         let absent = absentInput.value;
@@ -88,7 +88,7 @@ function groupMembers() {
 
         // いないメンバーを除外
         menberArray = menberArray.filter(name => !absentArray.includes(name));
-        let numOfMenber = menberArray.length; // ←この位置に移動
+        let numOfMenber = menberArray.length;
         if (parseInt(minPeople) > numOfMenber) {
             alert('「一グループの最低人数」が最終的な人数を上回っています。');
             return;
